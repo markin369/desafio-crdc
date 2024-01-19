@@ -1,63 +1,101 @@
 package br.com.marcosalexandre.desafiobackendcrdc;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import br.com.marcosalexandre.desafiobackendcrdc.entity.TipoTransacao;
+import br.com.marcosalexandre.desafiobackendcrdc.entity.Transacao;
+import br.com.marcosalexandre.desafiobackendcrdc.entity.TransacaoReport;
 import br.com.marcosalexandre.desafiobackendcrdc.repository.TransacaoRepository;
 import br.com.marcosalexandre.desafiobackendcrdc.service.TransacaoService;
 
 @ExtendWith(MockitoExtension.class)
 public class TransacaoServiceTest {
-  @InjectMocks
-  private TransacaoService transacaoService;
 
-  @Mock
-  private TransacaoRepository transacaoRepository;
+    @InjectMocks
+    private TransacaoService transacaoService;
 
-  @Test
-  public void testGetTotaisTransacoesByNomeDaLoja() {
-    /*final String lojaA = "Loja A", lojaB = "Loja B";
-    // Arrange
-    var transacao1 = new Transacao(
-        1L, 1, new Date(System.currentTimeMillis()),
-        BigDecimal.valueOf(100.00),
-        123456789L, "1234-5678-9012-3456",
-        new Time(System.currentTimeMillis()), "Dono Loja A", lojaA);
-    var transacao2 = new Transacao(
-        2L, 1, new Date(System.currentTimeMillis()),
-        BigDecimal.valueOf(50.00),
-        987654321L, "9876-5432-1098-7654",
-        new Time(System.currentTimeMillis()), "Dono Loja B", lojaB);
-    var transacao3 = new Transacao(
-        3L, 1, new Date(System.currentTimeMillis()),
-        BigDecimal.valueOf(75.00),
-        111222333L, "1111-2222-3333-4444",
-        new Time(System.currentTimeMillis()), "Dono Loja A", lojaA);
+    @Mock
+    private TransacaoRepository transacaoRepository;
 
-    List<Transacao> mockTransacoes = List.of(transacao1, transacao2, transacao3);
+    @Test
+    public void testGetTotaisTransacoesByNomeDaLoja() {
+        final String lojaA = "Loja A", lojaB = "Loja B";
 
-    when(transacaoRepository.findAllByOrderByNomeDaLojaAscIdDesc()).thenReturn(mockTransacoes);
+        // Arrange
+        var transacao1 = new Transacao(
+                1L,
+                lojaA,
+                "123456789", "",
+                TipoTransacao.CREDITO.getTipo(),
+                BigDecimal.valueOf(100.00),
+                12345678L,
+                90123456L,
+                "");
 
-    // Act
-    List<TransacaoReport> reports = transacaoService.getTotaisTransacoesByNomeDaLoja();
+        var transacao2 = new Transacao(
+                2L,
+                lojaB,
+                "111222333", "",
+                TipoTransacao.DEBITO.getTipo(),
+                BigDecimal.valueOf(75.00),
+                11112222L,
+                33334444L,
+                "");
 
-    // Assert
-    assertEquals(2, reports.size());
+        var transacao3 = new Transacao(
+                3L,
+                lojaA,
+                "123456789", "",
+                TipoTransacao.TRANSFERENCIA.getTipo(),
+                BigDecimal.valueOf(50.00),
+                11112222L,
+                33334444L,
+                "");
 
-    reports.forEach(report -> {
-      if (report.razaoSocial().equals(lojaA)) {
-        assertEquals(2, report.transacoes().size());
-        assertEquals(BigDecimal.valueOf(175.00), report.total());
-        assertTrue(report.transacoes().contains(transacao1));
-        assertTrue(report.transacoes().contains(transacao3));
-      } else if (report.razaoSocial().equals(lojaB)) {
-        assertEquals(1, report.transacoes().size());
-        assertEquals(BigDecimal.valueOf(50.00), report.total());
-        assertTrue(report.transacoes().contains(transacao2));
-      }
-    });*/
-  }
+        List<Transacao> mockTransacoes = List.of(transacao1, transacao2, transacao3);
+
+        when(transacaoRepository.findAllByOrderByRazaoSocialAscIdDesc()).thenReturn(mockTransacoes);
+
+        // Act
+        List<TransacaoReport> reports = transacaoService.getTotaisTransacoesByRazaoSocial();
+
+        // Assert
+        assertEquals(2, reports.size(), "O número de relatórios não está correto.");
+
+        reports.forEach(report -> {
+            if (report.razaoSocial().equals(lojaA)) {
+                assertTransacaoReport(report, lojaA, 2, BigDecimal.valueOf(150.00), transacao1, transacao3);
+            } else if (report.razaoSocial().equals(lojaB)) {
+                assertTransacaoReport(report, lojaB, 1, BigDecimal.valueOf(75.00), transacao2);
+            }
+        });
+    }
+
+    private void assertTransacaoReport(TransacaoReport report, String expectedRazaoSocial, int expectedSize, BigDecimal expectedTotal, Transacao... expectedTransacoes) {
+        assertEquals(expectedRazaoSocial, report.razaoSocial(), "Razão social incorreta.");
+        assertEquals(expectedSize, report.transacoes().size(), "Número incorreto de transações.");
+        assertEquals(expectedTotal, report.total(), "Total incorreto.");
+        List<Transacao> transacoesEsperadas = Arrays.asList(expectedTransacoes);
+        List<Transacao> transacoesReais = report.transacoes();
+
+        for (Transacao transacaoEsperada : transacoesEsperadas) {
+            assertTrue(transacoesReais.contains(transacaoEsperada), "Transação ausente: " + transacaoEsperada);
+        }
+
+        for (Transacao transacaoReal : transacoesReais) {
+            assertTrue(transacoesEsperadas.contains(transacaoReal), "Transação inesperada: " + transacaoReal);
+        }
+    }
 }

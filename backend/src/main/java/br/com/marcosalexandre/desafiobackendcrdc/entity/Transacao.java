@@ -1,6 +1,7 @@
 package br.com.marcosalexandre.desafiobackendcrdc.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -38,5 +39,30 @@ public record Transacao(
         id, razaoSocial, identificadorEmpresa, reservadoCabecalho, tipoTransacao, valorTransacao, 
         contaOrigem, contaDestino, reservadoRodape );
   }
+
+  @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transacao transacao = (Transacao) o;
+        return Objects.equals(id, transacao.id) &&
+                Objects.equals(razaoSocial, transacao.razaoSocial) &&
+                Objects.equals(identificadorEmpresa, transacao.identificadorEmpresa) &&
+                Objects.equals(reservadoCabecalho, transacao.reservadoCabecalho) &&
+                tipoTransacaoEquals(tipoTransacao, transacao.tipoTransacao) &&
+                Objects.equals(valorTransacao, transacao.valorTransacao) &&
+                Objects.equals(contaOrigem, transacao.contaOrigem) &&
+                Objects.equals(contaDestino, transacao.contaDestino) &&
+                Objects.equals(reservadoRodape, transacao.reservadoRodape);
+    }
+
+    private boolean tipoTransacaoEquals(String tipo1, String tipo2) {
+        return tipo1.substring(0,1).equals(tipo2.substring(0,1));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, razaoSocial, identificadorEmpresa, reservadoCabecalho, tipoTransacao, valorTransacao, contaOrigem, contaDestino, reservadoRodape);
+    }
 
 }
