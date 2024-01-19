@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Spring Boot Application
+  spring-app:
+    image: backend-desafio:latest
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/desafio
+    depends_on:
+      - postgres-db
+  
+  # Postgres Database
+  postgres-db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: desafio
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 18:JcG9(6~&^
+
+  # SPA Application
+  spa-app:
+    build:
+      context: ./frontend # Path to your SPA project directory
+      dockerfile: Dockerfile # Specify the Dockerfile to use
+    ports:
+      - "9090:9090" # Map host port to container port
+    depends_on:
+      - spring-app
