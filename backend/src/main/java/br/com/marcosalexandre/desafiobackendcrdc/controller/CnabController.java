@@ -28,7 +28,7 @@ public class CnabController {
   }
 
   @Operation(summary = "Realiza upload do arquivo CNAB.")
-  @CrossOrigin(origins = { "http://localhost:9090", "https://frontend-crdc.onrender.com" })
+  @CrossOrigin(origins = { "http://localhost:9090", "https://frontend-desafio.onrender.com" })
   @PostMapping("upload")
   @RequestBody(content = @Content(
 		mediaType = "multipart/form-data",

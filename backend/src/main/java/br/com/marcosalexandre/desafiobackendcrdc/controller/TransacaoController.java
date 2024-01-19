@@ -26,7 +26,7 @@ public class TransacaoController {
   }
 
 
-  @CrossOrigin(origins = { "http://localhost:9090", "https://frontend-crdc.onrender.com" })
+  @CrossOrigin(origins = { "http://localhost:9090", "https://frontend-desafio.onrender.com" })
   @GetMapping
   @Operation(summary = "Listar informações autorizadas dos arquivos CNABs importados.")
   public List<TransacaoReport> listAll() {
