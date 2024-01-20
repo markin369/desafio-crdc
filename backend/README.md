@@ -1,17 +1,17 @@
-# Desafio Backend crdc
+# Desafio Backend Pagnet
 
-Esse projeto foi desenvolvido usando como base [esse desafio](https://github.com/crdc/desafio-back-end/tree/master) para uma vaga backend na crdc. A solução desenvolvida nesse subprojeto é o backend e utiliza Spring Batch para o processamento do arquivo CNAB.
+Esse projeto foi desenvolvido usando como base [esse desafio](https://gold-box-906.notion.site/CRDC-Desafio-Full-Stack-Java-developer-42fffd9591844a7f8023bc5fc355fe14) para uma vaga fullstack na CRDC. A solução desenvolvida nesse subprojeto é o backend e utiliza Spring Batch para o processamento do arquivo CNAB.
 
 ## Como Executar
-Para executar localmente é necessário ter o [MySQL](https://www.mysql.com) instalado ou executá-lo via Docker, para tal seguir a documentação da ferramenta. Lembrar de ajustar o usuário e senha utilizados e o nome do banco, caso necessário.
+Para executar localmente é necessário ter o [PostgresSQL](https://www.postgresql.org/) instalado ou executá-lo via Docker, para tal seguir a documentação da ferramenta. Lembrar de ajustar o usuário e senha utilizados e o nome do banco, caso necessário.
 
 - Clonar repositório git:
 ```
-git clone https://github.com/giuliana-bezerra/desafio-backend-crdc.git
+git clone https://github.com/markin369/desafio-crdc.git
 ```
 - Buildar o projeto:
 ```
-./backend/mvnw clean install -DskipTests -f backend/pom.xml
+./backend/mvn clean install -DskipTests -f backend/pom.xml
 ```
 - Executar o projeto:
 ```

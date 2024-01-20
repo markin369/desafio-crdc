@@ -1,7 +1,18 @@
-# Vue 3 + Vite
+# Desafio Backend Pagnet
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Esse projeto foi desenvolvido usando como base [esse desafio](https://gold-box-906.notion.site/CRDC-Desafio-Full-Stack-Java-developer-42fffd9591844a7f8023bc5fc355fe14) para uma vaga full stack na CRDC. A solução desenvolvida nesse subprojeto é o frontend, e para executá-la é necessário ter o [NodeJS](https://nodejs.org/en) instalado.
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Como Executar
+- Clonar repositório git:
+```
+git clone https://github.com/markin369/desafio-crdc.git
+```
+- Buildar o projeto:
+```
+npm install
+```
+- Executar o projeto:
+```
+npm run dev
+```
+O projeto ficará acessível em `http://localhost:9090/`.
