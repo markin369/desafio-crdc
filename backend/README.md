@@ -1,4 +1,4 @@
-# Desafio Backend Pagnet
+# Desafio Full Stack CRDC
 
 Esse projeto foi desenvolvido usando como base [esse desafio](https://gold-box-906.notion.site/CRDC-Desafio-Full-Stack-Java-developer-42fffd9591844a7f8023bc5fc355fe14) para uma vaga fullstack na CRDC. A solução desenvolvida nesse subprojeto é o backend e utiliza Spring Batch para o processamento do arquivo CNAB.
 
