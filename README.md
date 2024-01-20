@@ -15,6 +15,10 @@ A solução desenvolvida possui projetos front e backend e utiliza Spring Batch 
 - [Tailwind](https://tailwindcss.com)
 - [Postgres](https://www.postgresql.org/)
 
+## Documentação Swagger
+
+Foi desenvolvida uma página Swagger para documentar as APIs do backend, basta acessar a documentação Swagger basta adicionar "/docs" no final do endereço da aplicação backend.(http://localhost:8080/docs)
+
 ## Como Executar
 
 A executação deve ser feita com o Docker Compose, caso desejado, é possível executar cada projeto manualmente e localmente seguindo as instruções de seus respectivos arquivos README.
